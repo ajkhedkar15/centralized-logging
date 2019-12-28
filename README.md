@@ -10,7 +10,7 @@ A project to deal with logging complexities in a Microservices Architecture.
 
 ## Development Setup
 
-1. Clone this repo and open all the projects in your favourite IDE.
+1. Clone or fork & clone this repo and open the root project (centralized-logging) in your favourite IDE.
 
 2. Start all the microservices in development mode.
 
