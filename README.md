@@ -4,6 +4,7 @@ A project to deal with logging complexities in a Microservices Architecture.
 
 ## Development Requirements
 
+- Docker v19 or higher
 - Docker Compose v1.24.1 or higher
 - Java 11
 - Gradle v6.0.1 or higher
