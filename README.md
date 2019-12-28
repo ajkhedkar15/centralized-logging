@@ -11,12 +11,21 @@ A project to deal with logging complexities in a Microservices Architecture.
 ## Development Setup
 
 1. Clone or fork & clone this repo and open the root project (centralized-logging) in your favourite IDE.
+2. Build all the services and start all the containers using a conventional shell script
 
-2. Start all the microservices in development mode.
-
-    ```shell
-    docker-compose up -d --build
+    ```shell script
+    ./start.sh
     ```
+3. To stop and remove all the containers, use
+
+    ```shell script
+    ./stop.sh
+    ```
+4. Tail `log-shipper` container to view the logs from all the other containers
+
+    ```shell script
+    docker logs --follow log-shipper    
+    ```  
 
 ## Centralized Logging Architecture
 
