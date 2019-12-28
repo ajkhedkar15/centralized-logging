@@ -64,3 +64,28 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
+    links:
+      - "elasticsearch"
+    depends_on:
+      - "elasticsearch"
+      - "kibana"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - "discovery.type=single-node"
+    expose:
+      - "9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.5.1
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    links:
+      - "elasticsearch"
+    depends_on:
+      - "elasticsearch"
