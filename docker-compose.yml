@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  discovery:
+    build: discovery
+    container_name: discovery
+    ports:
+      - "8761:8761"
+
+  gateway:
+    build: gateway
+    container_name: gateway
+    ports:
+      - "8889:8889"
+    depends_on:
+      - discovery
+    environment:
+      - JAVA_OPTS=-DDISCOVERY_SERVER=http://discovery:8761/eureka
+
+  quotes:
+    build: quotes
+    container_name: quotes
+    ports:
+      - "8890:8890"
+    depends_on:
+      - discovery
+    environment:
+      - JAVA_OPTS=-DDISCOVERY_SERVER=http://discovery:8761/eureka
+
+  greeter:
+    build: greeter
+    container_name: greeter
+    ports:
+      - "8891:8891"
+    depends_on:
+      - discovery
+    environment:
+      - JAVA_OPTS=-DDISCOVERY_SERVER=http://discovery:8761/eureka
