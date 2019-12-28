@@ -1,0 +1,6 @@
+rootProject.name = 'centralized-logging'
+
+include 'discovery'
+include 'gateway'
+include 'quotes'
+include 'greeter'
