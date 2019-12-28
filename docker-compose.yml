@@ -6,6 +6,12 @@ services:
     container_name: discovery
     ports:
       - "8761:8761"
+    depends_on:
+      - log-shipper
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
 
   gateway:
     build: gateway
@@ -14,8 +20,13 @@ services:
       - "8889:8889"
     depends_on:
       - discovery
+      - log-shipper
     environment:
       - JAVA_OPTS=-DDISCOVERY_SERVER=http://discovery:8761/eureka
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
 
   quotes:
     build: quotes
@@ -24,8 +35,13 @@ services:
       - "8890:8890"
     depends_on:
       - discovery
+      - log-shipper
     environment:
       - JAVA_OPTS=-DDISCOVERY_SERVER=http://discovery:8761/eureka
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
 
   greeter:
     build: greeter
@@ -34,5 +50,17 @@ services:
       - "8891:8891"
     depends_on:
       - discovery
+      - log-shipper
     environment:
       - JAVA_OPTS=-DDISCOVERY_SERVER=http://discovery:8761/eureka
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+
+  log-shipper:
+    build: log-shipper
+    container_name: log-shipper
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
